@@ -64,7 +64,7 @@ function showRandomQuote() {
  * It retrieves values from input fields, validates them, adds the new quote,
  * clears the input fields, and then displays a new random quote.
  */
-function addQuote() {
+function createAddQuoteForm() {
     const text = newQuoteText.value.trim();
     const category = newQuoteCategory.value.trim();
 

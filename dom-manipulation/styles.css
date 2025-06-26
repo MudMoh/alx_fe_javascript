@@ -63,7 +63,7 @@
       border-radius: 5px;
       font-size: 1em;
     }
-    button[onclick="addQuote()"] {
+    button[onclick="createAddQuoteForm()"] {
       background-color: #28a745;
       color: white;
       padding: 10px 20px;
@@ -73,7 +73,7 @@
       font-size: 1em;
       transition: background-color 0.3s ease;
     }
-    button[onclick="addQuote()"]:hover {
+    button[onclick="createAddQuoteForm()"]:hover {
       background-color: #218838;
     }
     /* Responsive adjustments */
