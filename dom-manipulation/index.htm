@@ -13,10 +13,20 @@
   <div id="quoteDisplay"></div>
   <button id="newQuote">Show New Quote</button>
 
-  <div>
+  <div class="form-section">
+    <h2>Add New Quote</h2>
     <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
     <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
     <button onclick="createAddQuoteForm()">Add Quote</button>
+  </div>
+
+  <div class="storage-section">
+    <h2>Manage Quotes Data</h2>
+    <button id="exportQuotesBtn" class="storage-btn">Export Quotes to JSON</button>
+    <div class="import-controls">
+      <label for="importFile" class="storage-btn file-label">Import Quotes from JSON</label>
+      <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" style="display: none;" />
+    </div>
   </div>
 
   <script src="script.js"></script>

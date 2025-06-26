@@ -1,85 +1,187 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    /* Ensures padding is included in element's total width/height */
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 20px;
+h1 {
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2.2em;
+}
+
+h2 {
+    color: #555;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    text-align: center;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+#quoteDisplay {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 20px;
+    width: 80%;
+    max-width: 600px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#quoteDisplay p:first-child {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+#quoteDisplay p:last-child {
+    font-size: 1em;
+    font-style: italic;
+    color: #666;
+}
+
+#newQuote {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+#newQuote:hover {
+    background-color: #0056b3;
+}
+
+/* Styling for the Add Quote form container */
+.form-section,
+.storage-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80%;
+    max-width: 400px;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* Styling for the Add Quote button */
+button[onclick="createAddQuoteForm()"] {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+button[onclick="createAddQuoteForm()"]:hover {
+    background-color: #218838;
+}
+
+/* Styling for storage section buttons */
+.storage-btn {
+    background-color: #6c757d;
+    /* Grey for storage buttons */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    display: inline-block;
+    /* For label styling */
+    width: 100%;
+    /* Ensure buttons take full width of container */
+    box-sizing: border-box;
+}
+
+.storage-btn:hover {
+    background-color: #5a6268;
+}
+
+.file-label {
+    background-color: #17a2b8;
+    /* Cyan for import button */
+}
+
+.file-label:hover {
+    background-color: #138496;
+}
+
+.import-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+
+    #quoteDisplay,
+    .form-section,
+    .storage-section {
+        width: 95%;
     }
+
     h1 {
-      color: #333;
-      margin-bottom: 30px;
+        font-size: 2em;
     }
-    #quoteDisplay {
-      background-color: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 25px;
-      margin-bottom: 20px;
-      width: 80%;
-      max-width: 600px;
-      min-height: 100px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+    h2 {
+        font-size: 1.3em;
     }
-    #newQuote {
-      background-color: #007bff;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1em;
-      margin-bottom: 20px;
-      transition: background-color 0.3s ease;
+
+    #quoteDisplay p:first-child {
+        font-size: 1.3em;
     }
-    #newQuote:hover {
-      background-color: #0056b3;
+
+    #quoteDisplay p:last-child {
+        font-size: 0.9em;
     }
-    div:has(#newQuoteText) { /* Styling for the add quote form container */
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      width: 80%;
-      max-width: 400px;
-      margin-top: 20px;
-      padding: 20px;
-      border: 1px solid #eee;
-      border-radius: 8px;
-      background-color: #fff;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+
+    #newQuote,
+    button[onclick="createAddQuoteForm()"],
+    .storage-btn {
+        padding: 8px 15px;
+        font-size: 0.9em;
     }
-    input[type="text"] {
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      font-size: 1em;
-    }
-    button[onclick="createAddQuoteForm()"] {
-      background-color: #28a745;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1em;
-      transition: background-color 0.3s ease;
-    }
-    button[onclick="createAddQuoteForm()"]:hover {
-      background-color: #218838;
-    }
-    /* Responsive adjustments */
-    @media (max-width: 600px) {
-        #quoteDisplay, div:has(#newQuoteText) {
-            width: 95%;
-        }
-    }
-  
+}
