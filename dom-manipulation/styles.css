@@ -167,7 +167,9 @@ h1 {
 /* Common section styling */
 .form-section,
 .storage-section,
-.filter-section {
+.filter-section,
+.sync-section {
+    /* Added .sync-section */
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -263,7 +265,7 @@ button[onclick="createAddQuoteForm()"]:active {
 }
 
 /* Styling for the category filter dropdown */
-#Categoryfilter {
+#categoryFilter {
     padding: 10px 15px;
     border: 2px solid #bdc3c7;
     border-radius: 8px;
@@ -284,7 +286,7 @@ button[onclick="createAddQuoteForm()"]:active {
     /* Space for the custom arrow */
 }
 
-#Categoryfilter:focus {
+#categoryFilter:focus {
     outline: none;
     border-color: #2980b9;
     box-shadow: 0 0 8px rgba(41, 128, 185, 0.3);
@@ -301,6 +303,66 @@ button[onclick="createAddQuoteForm()"]:active {
     text-align: center;
 }
 
+/* Server Sync specific styles */
+.sync-section {
+    margin-bottom: 20px;
+}
+
+.sync-status {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1em;
+    color: #34495e;
+    font-weight: bold;
+}
+
+/* Notification Area */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #2ecc71;
+    /* Default success green */
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    min-width: 250px;
+}
+
+.notification.show {
+    opacity: 1;
+}
+
+.notification.info {
+    background-color: #3498db;
+}
+
+/* Blue */
+.notification.success {
+    background-color: #2ecc71;
+}
+
+/* Green */
+.notification.warning {
+    background-color: #f39c12;
+}
+
+/* Orange */
+.notification.error {
+    background-color: #e74c3c;
+}
+
+/* Red */
+
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
@@ -312,7 +374,8 @@ button[onclick="createAddQuoteForm()"]:active {
     .form-section,
     .storage-section,
     .filter-section,
-    .quotes-list-container {
+    .quotes-list-container,
+    .sync-section {
         width: 95%;
         padding: 20px;
     }
@@ -328,7 +391,7 @@ button[onclick="createAddQuoteForm()"]:active {
     #newQuote,
     button[onclick="createAddQuoteForm()"],
     .storage-btn,
-    #Categoryfilter,
+    #categoryFilter,
     .quotes-list-container .quote-item .quote-text,
     .quotes-list-container .quote-item .quote-author {
         padding: 10px 15px;
@@ -348,6 +411,13 @@ button[onclick="createAddQuoteForm()"]:active {
         height: 24px;
         font-size: 1em;
     }
+
+    .notification {
+        width: 90%;
+        min-width: unset;
+        font-size: 0.9em;
+        padding: 12px 20px;
+    }
 }
 
 @media (max-width: 400px) {
@@ -363,7 +433,8 @@ button[onclick="createAddQuoteForm()"]:active {
     .form-section,
     .storage-section,
     .filter-section,
-    .quotes-list-container {
+    .quotes-list-container,
+    .sync-section {
         padding: 15px;
     }
 }

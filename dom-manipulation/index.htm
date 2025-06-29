@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Quote Generator</title>
     <link rel="stylesheet" href="styles.css">
-
 </head>
 
 <body>
@@ -19,7 +18,7 @@
     <!-- Category Filter Section -->
     <div class="filter-section">
         <h2>Filter Quotes by Category</h2>
-        <select id="Categoryfilter" onchange="filterQuotes()">
+        <select id="categoryFilter" onchange="filterQuotes()">
             <option value="all">All Categories</option>
             <!-- Dynamically populated categories will go here -->
         </select>
@@ -33,7 +32,6 @@
                 adding some!</p>
         </div>
     </div>
-
 
     <div class="form-section">
         <h2>Add New Quote</h2>
@@ -51,6 +49,16 @@
                 style="display: none;" />
         </div>
     </div>
+
+    <!-- Server Sync Section -->
+    <div class="sync-section">
+        <h2>Server Sync</h2>
+        <div id="syncStatus" class="sync-status">Ready to sync</div>
+        <button id="syncNowBtn" class="storage-btn">Sync Now</button>
+    </div>
+
+    <!-- Notification Area -->
+    <div id="notificationArea" class="notification hidden"></div>
 
     <script src="script.js"></script>
 </body>
