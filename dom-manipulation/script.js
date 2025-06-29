@@ -301,7 +301,7 @@ function importFromJsonFile(event) {
  * Maps API response to the quote object format.
  * @returns {Promise<Array<Object>>} A promise that resolves with the server quotes.
  */
-async function fetchServerQuotes() {
+async function fetchQuotesFromServer() { // Renamed from fetchServerQuotes
     try {
         syncStatusElement.textContent = "Fetching server data...";
         const response = await fetch(JSONPLACEHOLDER_API_URL);
@@ -334,7 +334,7 @@ async function syncData() {
     syncStatusElement.textContent = "Syncing...";
     displayNotification("Starting sync with server...", "info");
 
-    const serverData = await fetchServerQuotes();
+    const serverData = await fetchQuotesFromServer(); // Updated function call
 
     if (serverData.length === 0 && quotes.length === 0) {
         syncStatusElement.textContent = "Sync complete. No data to sync.";
