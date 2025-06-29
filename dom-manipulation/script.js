@@ -7,7 +7,7 @@ let quotes = [];
 let lastFilter = 'all'; // Default filter to show all categories
 
 // Define variables to reference DOM elements
-const randomQuoteDisplay = document.getElementById('randomQuoteDisplay'); // New ID for single quote display
+const quoteDisplay = document.getElementById('quoteDisplay'); // New ID for single quote display
 const newQuoteButton = document.getElementById('newQuote'); // Button to show new quote
 const newQuoteText = document.getElementById('newQuoteText'); // Input for new quote text
 const newQuoteCategory = document.getElementById('newQuoteCategory'); // Input for new quote category
@@ -78,11 +78,11 @@ function saveToLocalStorage() {
 // --- Display & Filtering Functions ---
 
 /**
- * Displays a single random quote from the 'quotes' array in the randomQuoteDisplay section.
+ * Displays a single random quote from the 'quotes' array in the random QuoteDisplay section.
  * This is separate from the filtered list display.
  */
 function showRandomQuote() {
-    randomQuoteDisplay.innerHTML = ''; // Clear previous content
+    quoteDisplay.innerHTML = ''; // Clear previous content
 
     const availableQuotes = quotes.length > 0 ? quotes : [
         { text: "No quotes available. Add some!", category: "Information" }
@@ -97,8 +97,8 @@ function showRandomQuote() {
     const categoryParagraph = document.createElement('p');
     categoryParagraph.textContent = `- ${randomQuote.category}`;
 
-    randomQuoteDisplay.appendChild(quoteParagraph);
-    randomQuoteDisplay.appendChild(categoryParagraph);
+    quoteDisplay.appendChild(quoteParagraph);
+    quoteDisplay.appendChild(categoryParagraph);
 }
 
 /**
