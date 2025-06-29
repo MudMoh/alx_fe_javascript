@@ -263,7 +263,7 @@ button[onclick="createAddQuoteForm()"]:active {
 }
 
 /* Styling for the category filter dropdown */
-#selectedCategory {
+#Categoryfilter {
     padding: 10px 15px;
     border: 2px solid #bdc3c7;
     border-radius: 8px;
@@ -284,7 +284,7 @@ button[onclick="createAddQuoteForm()"]:active {
     /* Space for the custom arrow */
 }
 
-#selectedCategory:focus {
+#Categoryfilter:focus {
     outline: none;
     border-color: #2980b9;
     box-shadow: 0 0 8px rgba(41, 128, 185, 0.3);
@@ -328,7 +328,7 @@ button[onclick="createAddQuoteForm()"]:active {
     #newQuote,
     button[onclick="createAddQuoteForm()"],
     .storage-btn,
-    #selectedCategory,
+    #Categoryfilter,
     .quotes-list-container .quote-item .quote-text,
     .quotes-list-container .quote-item .quote-author {
         padding: 10px 15px;
