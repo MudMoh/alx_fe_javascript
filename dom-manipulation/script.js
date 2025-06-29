@@ -13,7 +13,7 @@ const newQuoteText = document.getElementById('newQuoteText'); // Input for new q
 const newQuoteCategory = document.getElementById('newQuoteCategory'); // Input for new quote category
 const exportQuotesBtn = document.getElementById('exportQuotesBtn'); // Button for exporting quotes
 const importFile = document.getElementById('importFile'); // Input for importing file
-const categoryFilter = document.getElementById('categoryFilter'); // New select element for filtering
+const selectedCategory = document.getElementById('selectedCategory'); // New select element for filtering
 const quotesListDisplay = document.getElementById('quotesListDisplay'); // New container for filtered list
 const noFilteredQuotesMessage = document.getElementById('noFilteredQuotesMessage'); // Message for no filtered quotes
 
@@ -105,7 +105,7 @@ function showRandomQuote() {
  * Populates the category filter dropdown dynamically based on unique categories in the quotes array.
  */
 function populateCategories() {
-    categoryFilter.innerHTML = '<option value="all">All Categories</option>'; // Always add 'All' option
+    selectedCategory.innerHTML = '<option value="all">All Categories</option>'; // Always add 'All' option
 
     const uniqueCategories = new Set(quotes.map(quote => quote.category));
 
@@ -113,11 +113,11 @@ function populateCategories() {
         const option = document.createElement('option');
         option.value = category;
         option.textContent = category;
-        categoryFilter.appendChild(option);
+        selectedCategory.appendChild(option);
     });
 
     // Set the dropdown to the last selected filter
-    categoryFilter.value = lastFilter;
+    selectedCategory.value = lastFilter;
 }
 
 /**
@@ -125,7 +125,7 @@ function populateCategories() {
  * This function is called when the category filter changes.
  */
 function filterQuotes() {
-    lastFilter = categoryFilter.value; // Update the last filter
+    lastFilter = selectedCategory.value; // Update the last filter
     saveToLocalStorage(); // Persist the selected filter
 
     let filteredQuotes = [];
@@ -289,7 +289,7 @@ newQuoteButton.addEventListener('click', showRandomQuote);
 exportQuotesBtn.addEventListener('click', exportQuotesToJson);
 
 // The 'importFile' input has its onchange event handler defined directly in HTML.
-// The 'categoryFilter' select has its onchange event handler defined directly in HTML.
+// The 'selectedCategory' select has its onchange event handler defined directly in HTML.
 
 // Initial setup when the page loads:
 // 1. Load data from local storage
