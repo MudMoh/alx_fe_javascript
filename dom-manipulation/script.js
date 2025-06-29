@@ -5,7 +5,8 @@ let quotes = []; // Local quotes array
 let selectedCategory = 'all'; // Default filter to show all categories
 let simulatedServerQuotes = []; // Array to simulate quotes on the server
 const SYNC_INTERVAL = 15000; // Sync every 15 seconds
-const JSONPLACEHOLDER_API_URL = 'https://jsonplaceholder.typicode.com/posts?_limit=10'; // Using posts as mock quotes
+// Using posts for GET, and then for POST, JSONPlaceholder will just return the posted data
+const JSONPLACEHOLDER_API_URL = 'https://jsonplaceholder.typicode.com/posts';
 
 // --- DOM Element References ---
 const quoteDisplay = document.getElementById('quoteDisplay'); // Single random quote display
@@ -184,7 +185,7 @@ function renderQuotesList(quotesToRender) {
  * It retrieves values from input fields, validates them, adds the new quote,
  * clears the input fields, saves to local storage, updates categories, and then refreshes displays.
  */
-function createAddQuoteForm() {
+async function createAddQuoteForm() {
     const text = newQuoteText.value.trim();
     const category = newQuoteCategory.value.trim();
 
@@ -202,6 +203,10 @@ function createAddQuoteForm() {
 
         displayNotification("Quote added successfully!", "success");
         console.log("Quote added:", newQuote);
+
+        // Simulate pushing the new quote to the server
+        await pushQuoteToServer(newQuote);
+
     } else {
         alert("Please enter both the quote text and category to add a new quote.");
     }
@@ -222,6 +227,7 @@ function removeQuote(idToRemove) {
         filterQuotes(); // Re-filter and display the list
         showRandomQuote(); // Update the single random quote display in case the removed one was showing
         displayNotification("Quote removed.", "info");
+        // In a real app, you would also send a DELETE request to the server here
     } else {
         displayNotification("Quote not found.", "warning");
     }
@@ -301,10 +307,11 @@ function importFromJsonFile(event) {
  * Maps API response to the quote object format.
  * @returns {Promise<Array<Object>>} A promise that resolves with the server quotes.
  */
-async function fetchQuotesFromServer() { // Renamed from fetchServerQuotes
+async function fetchQuotesFromServer() {
     try {
         syncStatusElement.textContent = "Fetching server data...";
-        const response = await fetch(JSONPLACEHOLDER_API_URL);
+        // For fetching, we just append a limit
+        const response = await fetch(`${JSONPLACEHOLDER_API_URL}?_limit=10`); 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -327,6 +334,41 @@ async function fetchQuotesFromServer() { // Renamed from fetchServerQuotes
 }
 
 /**
+ * Simulates pushing a new quote to the server using a POST request.
+ * JSONPlaceholder will accept the POST and return the data, but won't persist it.
+ * @param {Object} quote The quote object to push.
+ */
+async function pushQuoteToServer(quote) {
+    try {
+        console.log("Attempting to push quote to server:", quote);
+        const response = await fetch(JSONPLACEHOLDER_API_URL, {
+            method: 'POST', // Specifies the HTTP method as POST
+            headers: {
+                'Content-Type': 'application/json', // Indicates that the body is JSON
+            },
+            body: JSON.stringify({ // Converts the quote object to a JSON string for the request body
+                title: quote.text, // Map to JSONPlaceholder's 'title'
+                body: quote.category, // Map to JSONPlaceholder's 'body'
+                userId: 1, // A static user ID for the mock API
+                localId: quote.id // Keep local ID for reference if needed
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const responseData = await response.json();
+        console.log("Quote successfully pushed to server (simulated):", responseData);
+        displayNotification("Quote pushed to server (simulated)!", "info");
+    } catch (error) {
+        console.error("Error pushing quote to server:", error);
+        displayNotification("Failed to push quote to server. Check console.", "error");
+    }
+}
+
+
+/**
  * Syncs local quotes with simulated server quotes using "server wins" strategy.
  * Local additions are kept. Server updates overwrite local.
  */
@@ -334,7 +376,7 @@ async function syncData() {
     syncStatusElement.textContent = "Syncing...";
     displayNotification("Starting sync with server...", "info");
 
-    const serverData = await fetchQuotesFromServer(); // Updated function call
+    const serverData = await fetchQuotesFromServer();
 
     if (serverData.length === 0 && quotes.length === 0) {
         syncStatusElement.textContent = "Sync complete. No data to sync.";
@@ -342,7 +384,6 @@ async function syncData() {
         return;
     }
 
-    const newLocalQuotes = [];
     let conflictsResolved = 0;
     let newServerQuotesAdded = 0;
 
