@@ -1,34 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynamic Quote Generator</title>
-  <!-- Basic styling can be added here or in a separate styles.css for better appearance -->
-  <link rel="stylesheet" href="styles.css">
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Quote Generator</title>
+    <link rel="stylesheet" href="styles.css">
+
 </head>
+
 <body>
-  <h1>Dynamic Quote Generator</h1>
-  <div id="quoteDisplay"></div>
-  <button id="newQuote">Show New Quote</button>
+    <h1>Dynamic Quote Generator</h1>
 
-  <div class="form-section">
-    <h2>Add New Quote</h2>
-    <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
-    <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-    <button onclick="createAddQuoteForm()">Add Quote</button>
-  </div>
+    <!-- Random Quote Display Area -->
+    <div id="randomQuoteDisplay" class="quote-display-single"></div>
+    <button id="newQuote">Show Random Quote</button>
 
-  <div class="storage-section">
-    <h2>Manage Quotes Data</h2>
-    <button id="exportQuotesBtn" class="storage-btn">Export Quotes to JSON</button>
-    <div class="import-controls">
-      <label for="importFile" class="storage-btn file-label">Import Quotes from JSON</label>
-      <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" style="display: none;" />
+    <!-- Category Filter Section -->
+    <div class="filter-section">
+        <h2>Filter Quotes by Category</h2>
+        <select id="categoryFilter" onchange="filterQuotes()">
+            <option value="all">All Categories</option>
+            <!-- Dynamically populated categories will go here -->
+        </select>
     </div>
-  </div>
 
-  <script src="script.js"></script>
+    <!-- Quotes List Display Area (for filtered results) -->
+    <div class="quotes-list-container">
+        <h2>All Stored Quotes (Filtered)</h2>
+        <div id="quotesListDisplay" class="space-y-4">
+            <p id="noFilteredQuotesMessage" class="no-quotes-message hidden">No quotes found for this category. Try
+                adding some!</p>
+        </div>
+    </div>
+
+
+    <div class="form-section">
+        <h2>Add New Quote</h2>
+        <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
+        <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
+        <button onclick="createAddQuoteForm()">Add Quote</button>
+    </div>
+
+    <div class="storage-section">
+        <h2>Manage Quotes Data</h2>
+        <button id="exportQuotesBtn" class="storage-btn">Export Quotes to JSON</button>
+        <div class="import-controls">
+            <label for="importFile" class="storage-btn file-label">Import Quotes from JSON</label>
+            <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)"
+                style="display: none;" />
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
