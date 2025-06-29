@@ -372,7 +372,7 @@ async function pushQuoteToServer(quote) {
  * Syncs local quotes with simulated server quotes using "server wins" strategy.
  * Local additions are kept. Server updates overwrite local.
  */
-async function syncData() {
+async function syncQuotes() { // Renamed from syncData
     syncStatusElement.textContent = "Syncing...";
     displayNotification("Starting sync with server...", "info");
 
@@ -452,7 +452,7 @@ newQuoteButton.addEventListener('click', showRandomQuote);
 exportQuotesBtn.addEventListener('click', exportQuotesToJson);
 
 // Event listener for "Sync Now" button
-syncNowBtn.addEventListener('click', syncData);
+syncNowBtn.addEventListener('click', syncQuotes); // Updated function call
 
 // Initial setup when the page loads
 document.addEventListener('DOMContentLoaded', async () => {
@@ -462,8 +462,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     showRandomQuote(); // Display a random quote
 
     // Perform an initial sync on load
-    await syncData();
+    await syncQuotes(); // Updated function call
 
     // Start periodic sync after initial load
-    setInterval(syncData, SYNC_INTERVAL);
+    setInterval(syncQuotes, SYNC_INTERVAL); // Updated function call
 });
