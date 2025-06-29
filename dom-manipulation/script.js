@@ -4,10 +4,10 @@
 // This array will hold quotes loaded from local storage,
 // or serve as a default if local storage is empty.
 let quotes = [];
-let lastFilter = 'all'; // Default filter to show all categories
+let selectedCategory = 'all'; // Default filter to show all categories (renamed from lastFilter)
 
 // Define variables to reference DOM elements
-const quoteDisplay = document.getElementById('quoteDisplay'); // New ID for single quote display
+const quoteDisplay = document.getElementById('randomQuoteDisplay'); // New ID for single quote display
 const newQuoteButton = document.getElementById('newQuote'); // Button to show new quote
 const newQuoteText = document.getElementById('newQuoteText'); // Input for new quote text
 const newQuoteCategory = document.getElementById('newQuoteCategory'); // Input for new quote category
@@ -59,16 +59,16 @@ function loadFromLocalStorage() {
     }
 
     // Load last selected filter from local storage
-    lastFilter = localStorage.getItem('lastFilter') || 'all';
+    selectedCategory = localStorage.getItem('selectedCategory') || 'all'; // Renamed from lastFilter
 }
 
 /**
- * Saves the current 'quotes' array and 'lastFilter' to Local Storage.
+ * Saves the current 'quotes' array and 'selectedCategory' to Local Storage.
  */
 function saveToLocalStorage() {
     try {
         localStorage.setItem('quotes', JSON.stringify(quotes));
-        localStorage.setItem('lastFilter', lastFilter);
+        localStorage.setItem('selectedCategory', selectedCategory); // Renamed from lastFilter
     } catch (e) {
         console.error("Error saving to local storage:", e);
         alert("Failed to save data. Local storage might be full or inaccessible.");
@@ -78,7 +78,7 @@ function saveToLocalStorage() {
 // --- Display & Filtering Functions ---
 
 /**
- * Displays a single random quote from the 'quotes' array in the random QuoteDisplay section.
+ * Displays a single random quote from the 'quotes' array in the quoteDisplay section.
  * This is separate from the filtered list display.
  */
 function showRandomQuote() {
@@ -117,7 +117,7 @@ function populateCategories() {
     });
 
     // Set the dropdown to the last selected filter
-    categoryFilter.value = lastFilter;
+    categoryFilter.value = selectedCategory; // Renamed from lastFilter
 }
 
 /**
@@ -125,14 +125,14 @@ function populateCategories() {
  * This function is called when the category filter changes.
  */
 function filterQuotes() {
-    lastFilter = categoryFilter.value; // Update the last filter
+    selectedCategory = categoryFilter.value; // Update the selected category
     saveToLocalStorage(); // Persist the selected filter
 
     let filteredQuotes = [];
-    if (lastFilter === 'all') {
+    if (selectedCategory === 'all') { // Renamed from lastFilter
         filteredQuotes = quotes;
     } else {
-        filteredQuotes = quotes.filter(quote => quote.category === lastFilter);
+        filteredQuotes = quotes.filter(quote => quote.category === selectedCategory); // Renamed from lastFilter
     }
 
     renderQuotesList(filteredQuotes); // Render the filtered quotes
@@ -299,6 +299,6 @@ exportQuotesBtn.addEventListener('click', exportQuotesToJson);
 document.addEventListener('DOMContentLoaded', () => {
     loadFromLocalStorage();
     populateCategories();
-    filterQuotes(); // Apply initial filter based on lastFilter from localStorage
+    filterQuotes(); // Apply initial filter based on selectedCategory from localStorage
     showRandomQuote();
 });
