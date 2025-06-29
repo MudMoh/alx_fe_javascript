@@ -417,12 +417,13 @@ async function syncQuotes() { // Renamed from syncData
     filterQuotes(); // Update filtered list display
     showRandomQuote(); // Update random quote display
 
-    let syncMessage = "Sync complete.";
+    let syncMessage = "Quotes synced with server!"; // Start with the new desired message
     if (conflictsResolved > 0 || newServerQuotesAdded > 0) {
-        syncMessage += ` ${newServerQuotesAdded} new server quotes, ${conflictsResolved} conflicts resolved (server won).`;
+        syncMessage += ` ${newServerQuotesAdded} new quotes, ${conflictsResolved} conflicts resolved (server won).`;
         displayNotification(syncMessage, "success");
     } else {
-        displayNotification("Sync complete. No changes detected.", "info");
+        syncMessage += " No changes detected.";
+        displayNotification(syncMessage, "info");
     }
     syncStatusElement.textContent = syncMessage;
     console.log("Quotes after sync:", quotes);
